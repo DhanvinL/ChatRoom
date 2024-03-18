@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ObjectOutputStream;
-
+import java.util.*;
 public class CC4_Frame extends JFrame implements MouseListener {
     // Display message
     private String text = "";
@@ -16,7 +16,7 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
     public CC4_Frame(GameData gameData, ObjectOutputStream os, char player)
     {
-        super("Connect Four Game");
+        super("Chat Room");
         // sets the attributes
         this.gameData = gameData;
         this.os = os;
@@ -33,10 +33,11 @@ public class CC4_Frame extends JFrame implements MouseListener {
         if(player == 'X')
             text = "Waiting for Black to Connect";
 
-        setSize(600,600);
+        setSize(750,750);
         setResizable(false);
         setAlwaysOnTop(true);
         setVisible(true);
+        setBackground(Color.gray);
     }
     /*public int countDown()
     {
@@ -60,7 +61,7 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
     public void paint(Graphics g)
     {
-        for (int row = 0; row < gameData.getGrid().length; row++) {
+        /*for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
             for (int col = 0; col < gameData.getGrid()[0].length; col++) {
                 System.out.print(gameData.getGrid()[row][col] + " ");

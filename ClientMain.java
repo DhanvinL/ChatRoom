@@ -1,14 +1,16 @@
 import javax.print.DocFlavor;
+import javax.swing.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientMain
 {
     public static void main(String[] args)
     {
-        try {
+        /*try {
             // create an object for the TTT game
             GameData gameData = new GameData();
 
@@ -38,6 +40,12 @@ public class ClientMain
         catch(Exception e)
         {
             e.printStackTrace();
-        }
+        }*/
+        ButtonFrame cr = new ButtonFrame();
+        ArrayList<String> messageData = new ArrayList<>();
+        JList messages = new JList(messageData.toArray());
+        JScrollPane chat = new JScrollPane(messages, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chat.setBounds(0,0,450,700);
+        cr.add(messages);
     }
 }
