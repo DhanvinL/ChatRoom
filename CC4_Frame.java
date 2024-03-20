@@ -38,6 +38,32 @@ public class CC4_Frame extends JFrame implements MouseListener {
         setAlwaysOnTop(true);
         setVisible(true);
         setBackground(Color.gray);
+        //send button
+        JButton send = new JButton("Send");
+        send.setBounds(550,525,150,35);
+        add(send);
+        //exit button
+        JButton exit = new JButton("Exit");
+        exit.setBounds(550,570,150,35);
+        add(exit);
+        //type in
+        JTextField ti = new JTextField();
+        ti.setBounds(50,525,480,95);
+        add(ti);
+        /// chat
+        JLabel ct = new JLabel("Chat");
+        ct.setBounds(30,100,20,20);
+        add(ct);
+        JTextArea c = new JTextArea();
+        JScrollPane chat = new JScrollPane(c, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chat.setBounds(50,100,480,400);
+        c.setBounds(50,100,480,400);
+        add(chat);
+        //user list
+        JList user = new JList();
+        JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        users.setBounds(550,100,150,400);
+        add(users);
     }
     /*public int countDown()
     {
@@ -61,17 +87,30 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
     public void paint(Graphics g)
     {
+
+        /*g.setColor(Color.LIGHT_GRAY);
+        g.fillRect(0,0,getWidth(),getHeight());
+        ArrayList<String> messageData = new ArrayList<>();
+        JList messages = new JList(messageData.toArray());
+        JScrollPane chat = new JScrollPane(messages, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chat.setBounds(50,50,450,450);
+
+        chat.setVisible(true);
+        add(chat);
+        JButton send = new JButton();
+        send.setBounds(600,600,50,30);
+        send.setVisible(true);
+        add(send);
         /*for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
             for (int col = 0; col < gameData.getGrid()[0].length; col++) {
                 System.out.print(gameData.getGrid()[row][col] + " ");
             }
             System.out.println();
-        }
+        }*/
         // draws the background
-        g.setColor(Color.YELLOW);
-        g.fillRect(0,0,getWidth(),getHeight());
 
+/*
         // draws the display text to the screen
 
             g.setColor(Color.RED);
