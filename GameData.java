@@ -4,9 +4,21 @@ public class GameData
 {
     private int elapsedMessages = 0;
     private ArrayList<String> texts = new ArrayList<>();
-    public ArrayList<String> getGrid()
+    private ArrayList<String> names = new ArrayList<>();
+
+    public ArrayList<String> getTexts()
     {
         return texts;
+    }
+
+    public ArrayList<String> getNames()
+    {
+        return texts;
+    }
+
+    public void add(String name)
+    {
+        names.add(name);
     }
     public int getElapsedMessages()
     {

@@ -43,9 +43,7 @@ public class ServerMain
             t.start();
             xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
             oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
-            while(!serverSocket.isClosed()) {
 
-            }
         }
         catch (Exception e)
         {

@@ -22,6 +22,7 @@ public class ClientsListener implements Runnable
         try
         {
             while(true) {
+                /*
                 CommandFromServer cfs = (CommandFromServer) is.readObject();
                 // processes the received command
                 if (cfs.getCommand() == CommandFromServer.X_TURN)
@@ -44,6 +45,8 @@ public class ClientsListener implements Runnable
                 } else if (cfs.getCommand() == CommandFromServer.O_WINS) {
                     frame.setText("Black wins!");
                 }
+
+                 */
 
             }
 

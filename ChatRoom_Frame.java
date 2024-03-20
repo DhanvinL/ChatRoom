@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ObjectOutputStream;
@@ -27,37 +29,54 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
         // makes closing the frame close the program
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        // Set initial frame message
+
+
+        setSize(750,750);
+
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
 
-        setSize(600,600);
         setResizable(false);
         setAlwaysOnTop(true);
         setVisible(true);
-    }
-    /*public int countDown()
-    {
-        boolean go = false;
-        int x =5;
-        while (x > 0 ) {
-            System.out.println("x = " + x);
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {}
-            x--;
-        }
-        if(x == 0)
-        {
-            return WindowConstants.EXIT_ON_CLOSE;
-        }
+
+        setLayout(null);
+        JButton send = new JButton("Send");
+        send.setBounds(550,525,150,35);
+        add(send);
+        JButton exit = new JButton("Exit");
+        exit.setBounds(550,570,150,35);
+        add(exit);
+        JTextField ti = new JTextField();
+        ti.setBounds(50,525,480,95);
+        add(ti);
+        JTextArea c = new JTextArea();
+        c.setBounds(50,100,480,400);
+        JScrollPane chat = new JScrollPane(c, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        chat.setBounds(50,100,480,400);
+        add(chat);
+
+
+        JList user = new JList();
+        user.setListData(gameData.getNames().toArray());
+        JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        users.setBounds(550,100,150,400);
+        add(users);
+
+
+        System.out.println(gameData.getNames().toArray()[0]);
 
     }
-
-     */
 
     public void paint(Graphics g)
     {
+
+        g.setColor(Color.gray);
+        g.fillRect(0,0,getWidth(),getHeight());
+        /*
         for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
             for (int col = 0; col < gameData.getGrid()[0].length; col++) {
@@ -71,70 +90,69 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
         // draws the display text to the screen
 
-        g.setColor(Color.RED);
-        g.setFont(new Font("Times New Roman",Font.BOLD,30));
-        g.drawString(text,20    ,55);
-        gameData.setjustOne();
+            g.setColor(Color.RED);
+            g.setFont(new Font("Times New Roman",Font.BOLD,30));
+            g.drawString(text,20    ,55);
+            gameData.setjustOne();
 
-        g.setColor(Color.RED);
-        g.setFont(new Font("Times New Roman", Font.BOLD, 30));
-        g.drawString(text, 20, 55);
-        gameData.setjustOne();
-
-
-        // draws the c4 grid lines to the screen
-        int inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 60, 60, 60);
-        }
-        inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 130, 60, 60);
-        }
-        inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 200, 60, 60);
-        }
-        inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 270, 60, 60);
-        }
-        inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 340, 60, 60);
-        }
-        inc = 0;
-        for (int i = 1; i <= 7; i++) {
-            inc += 70;
-            g.setColor(Color.WHITE);
-            g.fillOval(inc, 410, 60, 60);
-        }
+            g.setColor(Color.RED);
+            g.setFont(new Font("Times New Roman", Font.BOLD, 30));
+            g.drawString(text, 20, 55);
+            gameData.setjustOne();
 
 
-        for (int u = 0; u < gameData.getGrid().length; u++) {
-            for (int v = 0; v < gameData.getGrid()[0].length; v++) {
-                if (gameData.getGrid()[u][v] != ' ') {
+            // draws the c4 grid lines to the screen
+            int inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 60, 60, 60);
+            }
+            inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 130, 60, 60);
+            }
+            inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 200, 60, 60);
+            }
+            inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 270, 60, 60);
+            }
+            inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 340, 60, 60);
+            }
+            inc = 0;
+            for (int i = 1; i <= 7; i++) {
+                inc += 70;
+                g.setColor(Color.WHITE);
+                g.fillOval(inc, 410, 60, 60);
+            }
 
-                    if (gameData.getGrid()[u][v] == 'X') {
-                        g.setColor(Color.RED);
-                        g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
-                    }
-                    if (gameData.getGrid()[u][v] == 'O') {
-                        g.setColor(Color.BLACK);
-                        g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
+            for (int u = 0; u < gameData.getGrid().length; u++) {
+                for (int v = 0; v < gameData.getGrid()[0].length; v++) {
+                    if (gameData.getGrid()[u][v] != ' ') {
+
+                        if (gameData.getGrid()[u][v] == 'X') {
+                            g.setColor(Color.RED);
+                            g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
+                        }
+                        if (gameData.getGrid()[u][v] == 'O') {
+                            g.setColor(Color.BLACK);
+                            g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
+                        }
                     }
                 }
-            }
 
         }
         /*g.setColor(Color.RED);
@@ -158,18 +176,49 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
 
     }
+    public void setJustText(String text)
+    {
+        /*
+        this.text = text;
+        gameData.setjustOne();
+        repaint();
 
 
+         */
+    }
 
 
+    public void setTurn(char turn) {
+        /*
+        String s = "";
+        if(turn==player)
+            text = "Your turn";
+        else
+        {
+            if(turn == 'X')
+            {
+                s = "Red";
+            }
+            else{
+                s = "Black";
+            }
+            text = s+"'s turn.";
+        }
+        repaint();
+
+         */
+    }
 
     public void makeMove(int r, int c, char letter)
     {
+        /*
         if(r != -1 && c != -1)
         {
             gameData.getGrid()[r][c] = letter;
             repaint();
         }
+
+         */
 
     }
 
@@ -245,7 +294,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     public void mousePressed(MouseEvent e) {
 
 
-        if(e.getButton() == MouseEvent.BUTTON3)
+       /* if(e.getButton() == MouseEvent.BUTTON3)
         {
             for(int x= 0;x<gameData.getGrid().length;x++)
             {
@@ -327,6 +376,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
             }
         }
+
+        */
     }
 
     @Override

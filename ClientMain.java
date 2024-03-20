@@ -10,13 +10,14 @@ public class ClientMain
         try {
             // create an object for the TTT game
             GameData gameData = new GameData();
-
             Scanner sc = new Scanner(System.in);
-            System.out.println("Enter the IP: ");
+            System.out.println("Enter the Name: ");
             String name = sc.next();
             System.out.println("Enter the IP: ");
             String ip = sc.next();
             // create a connection to server
+            gameData.elapse();
+            gameData.add(name);
             Socket socket = new Socket(ip,8001);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
