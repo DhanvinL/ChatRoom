@@ -4,19 +4,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ObjectOutputStream;
 
-public class CC4_Frame extends JFrame implements MouseListener {
+public class ChatRoom_Frame extends JFrame implements MouseListener {
     // Display message
     private String text = "";
     // the letter you are playing as
-    private char player;
+    private String player;
     // stores all the game data
     private GameData gameData = null;
     // output stream to the server
     ObjectOutputStream os;
 
-    public CC4_Frame(GameData gameData, ObjectOutputStream os, char player)
+    public ChatRoom_Frame(GameData gameData, ObjectOutputStream os, String player)
     {
-        super("Connect Four Game");
+        super("Chat Room");
         // sets the attributes
         this.gameData = gameData;
         this.os = os;
@@ -29,9 +29,7 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        // Set initial frame message
-        if(player == 'X')
-            text = "Waiting for Black to Connect";
+
 
         setSize(600,600);
         setResizable(false);
@@ -73,69 +71,70 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
         // draws the display text to the screen
 
-            g.setColor(Color.RED);
-            g.setFont(new Font("Times New Roman",Font.BOLD,30));
-            g.drawString(text,20    ,55);
-            gameData.setjustOne();
+        g.setColor(Color.RED);
+        g.setFont(new Font("Times New Roman",Font.BOLD,30));
+        g.drawString(text,20    ,55);
+        gameData.setjustOne();
 
-            g.setColor(Color.RED);
-            g.setFont(new Font("Times New Roman", Font.BOLD, 30));
-            g.drawString(text, 20, 55);
-            gameData.setjustOne();
+        g.setColor(Color.RED);
+        g.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        g.drawString(text, 20, 55);
+        gameData.setjustOne();
 
 
-            // draws the c4 grid lines to the screen
-            int inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 60, 60, 60);
-            }
-            inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 130, 60, 60);
-            }
-            inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 200, 60, 60);
-            }
-            inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 270, 60, 60);
-            }
-            inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 340, 60, 60);
-            }
-            inc = 0;
-            for (int i = 1; i <= 7; i++) {
-                inc += 70;
-                g.setColor(Color.WHITE);
-                g.fillOval(inc, 410, 60, 60);
-            }
+        // draws the c4 grid lines to the screen
+        int inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 60, 60, 60);
+        }
+        inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 130, 60, 60);
+        }
+        inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 200, 60, 60);
+        }
+        inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 270, 60, 60);
+        }
+        inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 340, 60, 60);
+        }
+        inc = 0;
+        for (int i = 1; i <= 7; i++) {
+            inc += 70;
+            g.setColor(Color.WHITE);
+            g.fillOval(inc, 410, 60, 60);
+        }
 
-            for (int u = 0; u < gameData.getGrid().length; u++) {
-                for (int v = 0; v < gameData.getGrid()[0].length; v++) {
-                    if (gameData.getGrid()[u][v] != ' ') {
 
-                        if (gameData.getGrid()[u][v] == 'X') {
-                            g.setColor(Color.RED);
-                            g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
-                        }
-                        if (gameData.getGrid()[u][v] == 'O') {
-                            g.setColor(Color.BLACK);
-                            g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
-                        }
+        for (int u = 0; u < gameData.getGrid().length; u++) {
+            for (int v = 0; v < gameData.getGrid()[0].length; v++) {
+                if (gameData.getGrid()[u][v] != ' ') {
+
+                    if (gameData.getGrid()[u][v] == 'X') {
+                        g.setColor(Color.RED);
+                        g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
+                    }
+                    if (gameData.getGrid()[u][v] == 'O') {
+                        g.setColor(Color.BLACK);
+                        g.fillOval((v * 70) + 70, (u * 70) + 60, 60, 60);
                     }
                 }
+            }
 
         }
         /*g.setColor(Color.RED);
@@ -159,31 +158,10 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
 
     }
-    public void setJustText(String text)
-    {
-        this.text = text;
-        gameData.setjustOne();
-        repaint();
-    }
 
 
-    public void setTurn(char turn) {
-        String s = "";
-        if(turn==player)
-            text = "Your turn";
-        else
-        {
-            if(turn == 'X')
-            {
-                s = "Red";
-            }
-            else{
-                s = "Black";
-            }
-            text = s+"'s turn.";
-        }
-        repaint();
-    }
+
+
 
     public void makeMove(int r, int c, char letter)
     {

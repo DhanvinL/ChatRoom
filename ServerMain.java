@@ -20,7 +20,7 @@ public class ServerMain
             ObjectInputStream xis = new ObjectInputStream(xCon.getInputStream());
 
             // Lets the client know they are the X player
-            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED_AS_X,null));
+            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
             System.out.println("Red has Connected.");
 
             // Creates a Thread to listen to the X client
@@ -34,29 +34,21 @@ public class ServerMain
             ObjectInputStream ois = new ObjectInputStream(oCon.getInputStream());
 
             // Lets the client know they are the X player
-            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED_AS_O,null));
+            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
             System.out.println("Black has Connected.");
 
             // Creates a Thread to listen to the X client
             sl = new ServersListener(ois,oos,'O');
             t = new Thread(sl);
             t.start();
-            xos.writeObject(new CommandFromServer(CommandFromServer.X_TURN,null));
-            oos.writeObject(new CommandFromServer(CommandFromServer.X_TURN,null));
+            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
             while(!serverSocket.isClosed()) {
-            if (xCon.isClosed()) {
-                System.out.println("X is closed");
-                go = true;
+
             }
-            if (oCon.isClosed()) {
-                System.out.println("O is closed");
-                go = true;
-            }
-        }
         }
         catch (Exception e)
         {
-            new CommandFromServer(CommandFromServer.DISCONNECTED,null);
             e.printStackTrace();
         }
     }
