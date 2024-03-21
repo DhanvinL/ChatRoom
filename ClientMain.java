@@ -18,6 +18,10 @@ public class ClientMain
             // create a connection to server
             gameData.elapse();
             gameData.add(name);
+            for(int x = 0;x<gameData.getNames().size();x++)
+            {
+                System.out.println(gameData.getNames().get(x));
+            }
             Socket socket = new Socket(ip,8001);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());

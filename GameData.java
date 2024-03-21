@@ -13,7 +13,7 @@ public class GameData
 
     public ArrayList<String> getNames()
     {
-        return texts;
+        return names;
     }
 
     public void add(String name)

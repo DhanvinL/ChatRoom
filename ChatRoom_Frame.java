@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class ChatRoom_Frame extends JFrame implements MouseListener {
     // Display message
@@ -25,49 +26,52 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         this.player = player;
 
         // adds a KeyListener to the Frame
-        addMouseListener(this);
 
         // makes closing the frame close the program
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Set initial frame message
 
 
         setSize(750,750);
-
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
         setResizable(false);
         setAlwaysOnTop(true);
         setVisible(true);
-
-        setLayout(null);
+        setBackground(Color.gray);
+        //send button
         JButton send = new JButton("Send");
         send.setBounds(550,525,150,35);
         add(send);
+        //exit button
         JButton exit = new JButton("Exit");
         exit.setBounds(550,570,150,35);
         add(exit);
+        //type in
         JTextField ti = new JTextField();
         ti.setBounds(50,525,480,95);
         add(ti);
+        /// chat
+        JLabel ct = new JLabel("Chat");
+        ct.setBounds(30,100,20,20);
+        add(ct);
         JTextArea c = new JTextArea();
-        c.setBounds(50,100,480,400);
         JScrollPane chat = new JScrollPane(c, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chat.setBounds(50,100,480,400);
+        c.setBounds(50,100,480,400);
         add(chat);
-
-
-        JList user = new JList();
-        user.setListData(gameData.getNames().toArray());
+        //user list
+        //System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+        String[] names = new String[gameData.getNames().size()];
+        for(int x = 0;x<gameData.getNames().size();x++)
+        {
+            names[x] = gameData.getNames().get(x);
+        }
+        JList user = new JList(names);
+        //System.out.println(names[0]);
         JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         users.setBounds(550,100,150,400);
         add(users);
-
-
-        System.out.println(gameData.getNames().toArray()[0]);
 
     }
 
