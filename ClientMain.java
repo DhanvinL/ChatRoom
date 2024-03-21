@@ -1,9 +1,6 @@
-import javax.print.DocFlavor;
-import javax.swing.*;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientMain
@@ -14,22 +11,23 @@ public class ClientMain
             // create an object for the TTT game
             GameData gameData = new GameData();
             Scanner sc = new Scanner(System.in);
+            System.out.println("Enter the Name: ");
+            String name = sc.next();
             System.out.println("Enter the IP: ");
             String ip = sc.next();
             // create a connection to server
+            gameData.elapse();
+            gameData.add(name);
+            for(int x = 0;x<gameData.getNames().size();x++)
+            {
+                System.out.println(gameData.getNames().get(x));
+            }
             Socket socket = new Socket(ip,8001);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
 
-            // determine if playing as X or O
-            CommandFromServer cfs = (CommandFromServer) is.readObject();
-            CC4_Frame frame;
-
-            // Create the Frame based on which player the server says this client is
-            if(cfs.getCommand() == CommandFromServer.CONNECTED_AS_X)
-                frame = new CC4_Frame(gameData,os,'X');
-            else
-                frame = new CC4_Frame(gameData,os, 'O');
+            ChatRoom_Frame frame;
+            frame = new ChatRoom_Frame(gameData,os, name);
 
             // Starts a thread that listens for commands from the server
             ClientsListener cl = new ClientsListener(is,os,frame);
@@ -40,7 +38,5 @@ public class ClientMain
         {
             e.printStackTrace();
         }
-
-
     }
 }

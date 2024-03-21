@@ -1,20 +1,24 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.ObjectOutputStream;
-import java.util.*;
-public class CC4_Frame extends JFrame implements MouseListener {
+import java.util.ArrayList;
+import java.io.*;
+
+public class ChatRoom_Frame extends JFrame implements MouseListener {
     // Display message
     private String text = "";
     // the letter you are playing as
-    private char player;
+    private String player;
     // stores all the game data
     private GameData gameData = null;
     // output stream to the server
     ObjectOutputStream os;
 
-    public CC4_Frame(GameData gameData, ObjectOutputStream os, char player)
+    public ChatRoom_Frame(GameData gameData, ObjectOutputStream os, String player)
     {
         super("Chat Room");
         // sets the attributes
@@ -23,31 +27,27 @@ public class CC4_Frame extends JFrame implements MouseListener {
         this.player = player;
 
         // adds a KeyListener to the Frame
-        addMouseListener(this);
 
         // makes closing the frame close the program
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // Set initial frame message
-        if(player == 'X')
-            text = "Waiting for Black to Connect";
+
 
         setSize(750,750);
         setResizable(false);
         setAlwaysOnTop(true);
         setVisible(true);
         setBackground(Color.gray);
-        //send button
-        JButton send = new JButton("Send");
-        send.setBounds(550,525,150,35);
-        add(send);
+
         //exit button
         JButton exit = new JButton("Exit");
         exit.setBounds(550,570,150,35);
         add(exit);
         //type in
         JTextField ti = new JTextField();
+        //ti.setHorizontalAlignment(SwingConstants.LEFT);
         ti.setBounds(50,525,480,95);
         add(ti);
         /// chat
@@ -60,57 +60,59 @@ public class CC4_Frame extends JFrame implements MouseListener {
         c.setBounds(50,100,480,400);
         add(chat);
         //user list
-        JList user = new JList();
+        //System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+        String[] names = new String[gameData.getNames().size()];
+        for(int x = 0;x<gameData.getNames().size();x++)
+        {
+            names[x] = gameData.getNames().get(x);
+        }
+        JList user = new JList(names);
+        //System.out.println(names[0]);
         JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         users.setBounds(550,100,150,400);
         add(users);
-    }
-    /*public int countDown()
-    {
-        boolean go = false;
-        int x =5;
-        while (x > 0 ) {
-            System.out.println("x = " + x);
-            try {
-                Thread.sleep(1000);
-            } catch (Exception e) {}
-            x--;
-        }
-        if(x == 0)
+        //send button
+        JButton send = new JButton("Send");
+        send.setBounds(550,525,150,35);
+        add(send);
+        send.addActionListener(e ->
         {
-            return WindowConstants.EXIT_ON_CLOSE;
+            try{
+                File f = new File("messages.txt");
+                if(!f.exists()){
+                    f.createNewFile();
+                }
+                FileWriter fw = new FileWriter(f, false);
+                PrintWriter pw = new PrintWriter(pw);
+            }
+            catch(Exception a){
+                a.printStackTrace();
         }
+            /*if(!ti.getText().isEmpty()){
+                c.setText(ti.getText());
+                ti.setText("");
+            }*/
+        });
 
     }
-
-     */
 
     public void paint(Graphics g)
     {
 
-        /*g.setColor(Color.LIGHT_GRAY);
+        g.setColor(Color.gray);
         g.fillRect(0,0,getWidth(),getHeight());
-        ArrayList<String> messageData = new ArrayList<>();
-        JList messages = new JList(messageData.toArray());
-        JScrollPane chat = new JScrollPane(messages, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        chat.setBounds(50,50,450,450);
-
-        chat.setVisible(true);
-        add(chat);
-        JButton send = new JButton();
-        send.setBounds(600,600,50,30);
-        send.setVisible(true);
-        add(send);
-        /*for (int row = 0; row < gameData.getGrid().length; row++) {
+        /*
+        for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
             for (int col = 0; col < gameData.getGrid()[0].length; col++) {
                 System.out.print(gameData.getGrid()[row][col] + " ");
             }
             System.out.println();
-        }*/
+        }
         // draws the background
+        g.setColor(Color.YELLOW);
+        g.fillRect(0,0,getWidth(),getHeight());
 
-/*
         // draws the display text to the screen
 
             g.setColor(Color.RED);
@@ -201,13 +203,18 @@ public class CC4_Frame extends JFrame implements MouseListener {
     }
     public void setJustText(String text)
     {
+        /*
         this.text = text;
         gameData.setjustOne();
         repaint();
+
+
+         */
     }
 
 
     public void setTurn(char turn) {
+        /*
         String s = "";
         if(turn==player)
             text = "Your turn";
@@ -223,15 +230,20 @@ public class CC4_Frame extends JFrame implements MouseListener {
             text = s+"'s turn.";
         }
         repaint();
+
+         */
     }
 
     public void makeMove(int r, int c, char letter)
     {
+        /*
         if(r != -1 && c != -1)
         {
             gameData.getGrid()[r][c] = letter;
             repaint();
         }
+
+         */
 
     }
 
@@ -307,7 +319,7 @@ public class CC4_Frame extends JFrame implements MouseListener {
     public void mousePressed(MouseEvent e) {
 
 
-        if(e.getButton() == MouseEvent.BUTTON3)
+       /* if(e.getButton() == MouseEvent.BUTTON3)
         {
             for(int x= 0;x<gameData.getGrid().length;x++)
             {
@@ -389,6 +401,8 @@ public class CC4_Frame extends JFrame implements MouseListener {
 
             }
         }
+
+        */
     }
 
     @Override
