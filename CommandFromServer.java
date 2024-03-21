@@ -9,7 +9,6 @@ public class CommandFromServer implements Serializable
 
     // Command list
     public static final int CONNECTED = 0;
-
     public static final int DISCONNECTED = 8;
 
     public CommandFromServer(int command, String data) {

@@ -22,6 +22,8 @@ public class ClientsListener implements Runnable
         try
         {
             while(true) {
+                //write command to frame to update
+
                 /*
                 CommandFromServer cfs = (CommandFromServer) is.readObject();
                 // processes the received command

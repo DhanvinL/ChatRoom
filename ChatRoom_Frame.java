@@ -73,6 +73,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         users.setBounds(550,100,150,400);
         add(users);
 
+
+
     }
 
     public void paint(Graphics g)

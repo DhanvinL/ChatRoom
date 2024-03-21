@@ -1,17 +1,18 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CommandFromClient implements Serializable
 {
     // The command being sent to the server
     private int command;
     // Text data for the command
-    private String data ="";
+    private ArrayList data = new ArrayList();
 
     // Command list
     public static final int MOVE    =0;
     public static final int RESTART =1;
 
-    public CommandFromClient(int command, String data) {
+    public CommandFromClient( ArrayList data) {
         this.command = command;
         this.data = data;
     }
@@ -20,7 +21,7 @@ public class CommandFromClient implements Serializable
         return command;
     }
 
-    public String getData() {
+    public ArrayList getData() {
         return data;
     }
 }

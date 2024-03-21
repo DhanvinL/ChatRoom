@@ -26,24 +26,14 @@ public class  ServersListener implements Runnable
 
     @Override
     public void run() {
-        /*
+
         try
         {
             while(true)
             {
                 CommandFromClient cfc = (CommandFromClient) is.readObject();
+                sendCommand(new CommandFromServer(CommandFromServer.MOVE,data));
 
-                // handle the received command
-
-                if(cfc.getCommand()==CommandFromClient.MOVE)
-                {
-
-
-
-
-
-
-                }
             }
         }
         catch(Exception e)
