@@ -16,6 +16,7 @@ public class ClientMain {
             String ip = sc.next();
             // create a connection to server
             gameData.elapse();
+            /*
             File f = new
                     File("C:\\Users\\K1328854\\OneDrive - Katy Independent School District\\chatroomstuff\\data.csv");
             ArrayList<String> tempnames = new ArrayList<>();
@@ -37,6 +38,8 @@ public class ClientMain {
                 }
             }
 
+
+
             while(check)
             {
                 boolean go = false;
@@ -56,8 +59,9 @@ public class ClientMain {
                 }
             }
             gameData.add(name);
-            tempnames.add(name);
-            FileWriter fw = new
+            tempnames.add(name)
+            ;*/
+            /*FileWriter fw = new
                     FileWriter("C:\\Users\\K1328854\\OneDrive - Katy Independent School District\\chatroomstuff\\data.csv");
             PrintWriter pw = new PrintWriter(fw);
             if (name.isEmpty()) {
@@ -71,13 +75,14 @@ public class ClientMain {
             for (int x = 0; x < gameData.getNames().size(); x++) {
                 System.out.println(gameData.getNames().get(x));
             }
+
+             */
             Socket socket = new Socket(ip, 8001);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
-
+            
             ChatRoom_Frame frame;
             frame = new ChatRoom_Frame(gameData, os, name);
-            os.writeObject(new CommandFromClient(tempnames));
             // Starts a thread that listens for commands from the server
             ClientsListener cl = new ClientsListener(is, os, frame);
             Thread t = new Thread(cl);
