@@ -15,6 +15,7 @@ public class ClientMain
             String name = sc.next();
             System.out.println("Enter the IP: ");
             String ip = sc.next();
+            System.out.print("Connected as ");
             // create a connection to server
             gameData.elapse();
             gameData.add(name);
@@ -28,7 +29,6 @@ public class ClientMain
 
             ChatRoom_Frame frame;
             frame = new ChatRoom_Frame(gameData,os, name);
-
             // Starts a thread that listens for commands from the server
             ClientsListener cl = new ClientsListener(is,os,frame);
             Thread t = new Thread(cl);

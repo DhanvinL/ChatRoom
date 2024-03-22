@@ -47,7 +47,6 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         add(exit);
         //type in
         JTextField ti = new JTextField();
-        //ti.setHorizontalAlignment(SwingConstants.LEFT);
         ti.setBounds(50,525,480,95);
         add(ti);
         /// chat
@@ -77,21 +76,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         add(send);
         send.addActionListener(e ->
         {
-            try{
-                File f = new File("messages.txt");
-                if(!f.exists()){
-                    f.createNewFile();
-                }
-                FileWriter fw = new FileWriter(f, false);
-                PrintWriter pw = new PrintWriter(pw);
-            }
-            catch(Exception a){
-                a.printStackTrace();
-        }
-            /*if(!ti.getText().isEmpty()){
-                c.setText(ti.getText());
-                ti.setText("");
-            }*/
+            gameData.getTexts().add(ti.getText());
+            ti.setText("");
         });
 
     }
