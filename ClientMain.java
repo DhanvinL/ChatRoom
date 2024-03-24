@@ -12,8 +12,8 @@ public class ClientMain {
             Scanner sc = new Scanner(System.in);
             System.out.println("Enter the Name: ");
             String name = sc.next();
-            System.out.println("Enter the IP: ");
-            String ip = sc.next();
+            //System.out.println("Enter the IP: ");
+            //String ip = sc.next();
             // create a connection to server
             gameData.elapse();
             /*
@@ -77,7 +77,7 @@ public class ClientMain {
             }
 
              */
-            Socket socket = new Socket(ip, 8001);
+            Socket socket = new Socket("127.0.0.1", 8001);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             

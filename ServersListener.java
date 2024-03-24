@@ -9,7 +9,7 @@ public class  ServersListener implements Runnable
     private ObjectOutputStream os;
 
     // Stores the which player this listener is for
-    private char player;
+    private String player;
 
     // static data that is shared between both listeners
     private static char turn = 'X';
@@ -17,7 +17,7 @@ public class  ServersListener implements Runnable
     private static ArrayList<ObjectOutputStream> outs = new ArrayList<>();
 
 
-    public ServersListener(ObjectInputStream is, ObjectOutputStream os, char player) {
+    public ServersListener(ObjectInputStream is, ObjectOutputStream os, String player) {
         this.is = is;
         this.os = os;
         this.player = player;
@@ -32,7 +32,9 @@ public class  ServersListener implements Runnable
             while(true)
             {
                 CommandFromClient cfc = (CommandFromClient) is.readObject();
-                sendCommand(new CommandFromServer(CommandFromServer.MOVE,data));
+                gameData.add(cfc.getData());
+                System.out.println("The number in the best list is:" + gameData.getNames().size());
+                sendCommand(new CommandFromServer(12, cfc.getData(), gameData.getNames()));
 
             }
         }
@@ -42,7 +44,7 @@ public class  ServersListener implements Runnable
         }
     }
 
-    public void changeTurn()
+    /*public void changeTurn()
     {
         // changes the turn
         if(turn=='X')
@@ -55,8 +57,9 @@ public class  ServersListener implements Runnable
             sendCommand(new CommandFromServer(CommandFromServer.X_TURN, null));
         else
             sendCommand(new CommandFromServer(CommandFromServer.O_TURN, null));
-        */
+
     }
+*/
 
     public void sendCommand(CommandFromServer cfs)
     {

@@ -6,14 +6,13 @@ public class CommandFromClient implements Serializable
     // The command being sent to the server
     private int command;
     // Text data for the command
-    private ArrayList data = new ArrayList();
+    private String data = "";
 
     // Command list
     public static final int MOVE    =0;
     public static final int RESTART =1;
 
-    public CommandFromClient( ArrayList data) {
-        this.command = command;
+    public CommandFromClient(String data) {
         this.data = data;
     }
 
@@ -21,7 +20,7 @@ public class CommandFromClient implements Serializable
         return command;
     }
 
-    public ArrayList getData() {
+    public String getData() {
         return data;
     }
 }

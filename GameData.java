@@ -15,6 +15,10 @@ public class GameData
     {
         return names;
     }
+    public void setGrid(ArrayList<String> grid)
+    {
+        names = grid;
+    }
 
     public void add(String name)
     {

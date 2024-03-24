@@ -21,11 +21,11 @@ public class ServerMain
             ObjectInputStream xis = new ObjectInputStream(xCon.getInputStream());
 
             // Lets the client know they are the X player
-            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            xos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Red has Connected.");
 
             // Creates a Thread to listen to the X client
-            ServersListener sl = new ServersListener(xis,xos,'X');
+            ServersListener sl = new ServersListener(xis,xos,"A");
             Thread t = new Thread(sl);
             t.start();
 
@@ -37,11 +37,11 @@ public class ServerMain
             ObjectInputStream ois = new ObjectInputStream(oCon.getInputStream());
 
             // Lets the client know they are the X player
-            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            oos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Black has Connected.");
 
             // Creates a Thread to listen to the O client
-            sl = new ServersListener(ois,oos,'O');
+            sl = new ServersListener(ois,oos,"B");
             t = new Thread(sl);
             t.start();
 
@@ -52,11 +52,11 @@ public class ServerMain
             ObjectInputStream zis = new ObjectInputStream(zCon.getInputStream());
 
             // Lets the client know they are the X player
-            zos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            zos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Black has Connected.");
 
             // Creates a Thread to listen to the O client
-            sl = new ServersListener(zis,zos,'O');
+            sl = new ServersListener(zis,zos,"C");
             t = new Thread(sl);
             t.start();
 
@@ -67,20 +67,20 @@ public class ServerMain
             ObjectInputStream bis = new ObjectInputStream(bCon.getInputStream());
 
             // Lets the client know they are the X player
-            bos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            bos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Black has Connected.");
 
             // Creates a Thread to listen to the O client
-            sl = new ServersListener(bis,bos,'O');
+            sl = new ServersListener(bis,bos,"D");
             t = new Thread(sl);
             t.start();
 
 
 
-            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
-            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
-            zos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
-            bos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            xos.writeObject(new CommandFromServer(0,null, null));
+            oos.writeObject(new CommandFromServer(0,null, null));
+            zos.writeObject(new CommandFromServer(0,null, null));
+            bos.writeObject(new CommandFromServer(0,null, null));
 
 
 
