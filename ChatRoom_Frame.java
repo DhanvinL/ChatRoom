@@ -15,6 +15,9 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     private String player;
     // stores all the game data
     private GameData gameData = null;
+
+    private ArrayList<String> arr= new ArrayList<String>();
+
     // output stream to the server
     ObjectOutputStream os;
 
@@ -24,6 +27,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         this.gameData = gameData;
         this.os = os;
         this.player = player;
+        os.writeObject(new CommandFromClient(player));
+
 
         // adds a KeyListener to the Frame
 
@@ -181,10 +186,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
          */
     }
 
-    public void setUp() throws IOException {
-        os.writeObject(new CommandFromClient(player));
 
-    }
     public void addName(ArrayList<String> names1)
     {
         gameData.setGrid(names1);

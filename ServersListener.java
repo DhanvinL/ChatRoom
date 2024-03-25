@@ -1,3 +1,4 @@
+import javax.print.DocFlavor;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -30,13 +31,17 @@ public class  ServersListener implements Runnable
         try
         {
             while(true)
+
             {
+                os.reset();
                 CommandFromClient cfc = (CommandFromClient) is.readObject();
                 gameData.add(cfc.getData());
-                System.out.println("The number in the best list is:" + gameData.getNames().size());
-                sendCommand(new CommandFromServer(12, cfc.getData(), gameData.getNames()));
+                System.out.println("The number in the main list is:" + gameData.getNames().size());
+                ArrayList<String> temp = gameData.getNames();
+                sendCommand(new CommandFromServer(12, cfc.getData(), temp));
 
             }
+
         }
         catch(Exception e)
         {

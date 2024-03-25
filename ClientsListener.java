@@ -1,5 +1,6 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ClientsListener implements Runnable
@@ -24,15 +25,13 @@ public class ClientsListener implements Runnable
             while(true) {
 
                 CommandFromServer cfs = (CommandFromServer)is.readObject();
-                if(cfs.getCommand() == 0)
-                {
-                    frame.setUp();
-                }
+
                 if(cfs.getCommand() == 12)
                 {
+                    ArrayList<String> arr = cfs.getNames();
                     System.out.println("yahoo");
-                    System.out.println("The number in the list is: " + cfs.getNames().size());
-                    frame.addName(cfs.getNames());
+                    System.out.println("The number in the list is: " + arr.size());
+                    frame.addName(arr);
                 }
                 //frame.addName(cfs.getData());
 
