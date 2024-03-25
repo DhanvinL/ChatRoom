@@ -82,6 +82,7 @@ public class ClientMain {
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
             
             ChatRoom_Frame frame;
+
             frame = new ChatRoom_Frame(gameData, os, name);
             // Starts a thread that listens for commands from the server
             ClientsListener cl = new ClientsListener(is, os, frame);

@@ -15,8 +15,10 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     private String player;
     // stores all the game data
     private GameData gameData = null;
+    private JList<String> user = new JList();
 
     private ArrayList<String> arr= new ArrayList<String>();
+    JScrollPane users;
 
     // output stream to the server
     ObjectOutputStream os;
@@ -27,7 +29,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         this.gameData = gameData;
         this.os = os;
         this.player = player;
-        os.writeObject(new CommandFromClient(player));
+
+        os.writeObject(new CommandFromClient(0, player));
 
 
         // adds a KeyListener to the Frame
@@ -40,20 +43,10 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
 
         setSize(750,750);
-        setResizable(false);
+        setResizable(true);
         setAlwaysOnTop(true);
         setVisible(true);
-        setBackground(Color.gray);
 
-
-
-    }
-
-    public void paint(Graphics g)
-    {
-
-        g.setColor(Color.gray);
-        g.fillRect(0,0,getWidth(),getHeight());
         //send button
         JButton send = new JButton("Send");
         send.setBounds(550,525,150,35);
@@ -67,31 +60,45 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         ti.setBounds(50,525,480,95);
         add(ti);
         /// chat
-        JLabel ct = new JLabel("Chat");
+        /*
+        JLabel ct = new JLabel();
         ct.setBounds(30,100,20,20);
         add(ct);
+         */
         JTextArea c = new JTextArea();
+
         JScrollPane chat = new JScrollPane(c, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chat.setBounds(50,100,480,400);
         c.setBounds(50,100,480,400);
         add(chat);
         //user list
-        System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+        //System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
 
         String[] names = new String[gameData.getNames().size()];
         for(int x = 0;x<gameData.getNames().size();x++)
         {
             names[x] = gameData.getNames().get(x);
+            c.append(names[x]);
+            System.out.println(gameData.getNames().get(x));
         }
-        JList<String> user = new JList();
+
         user.setListData(names);
         user.setBounds(550,100,150,400);
         //System.out.println(names[0]);
-        JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         users.getViewport().setView(user);
 
         users.setBounds(550,100,150,400);
         add(users);
+
+
+    }
+
+    /*public void paint(Graphics g)
+    {
+
+        //g.setColor(Color.lightGray);
+        //g.fillRect(0,0,getWidth(),getHeight());
         /*
         for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
@@ -183,17 +190,23 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
             for(int c=0; c<gameData.getGrid().length; c++)
                 g.drawString(""+gameData.getGrid()[r][c],c*133+42,r*133+150);
 
-         */
+
+    }
+    */
+
+    public void addName(ArrayList<String> names1) throws IOException {
+            gameData.setGrid(names1);
+            System.out.println("It is repainting");
+            System.out.println(names1.size());
+            String[] names12 = new String[gameData.getNames().size()];
+            for (int x = 0; x < gameData.getNames().size(); x++) {
+                names12[x] = gameData.getNames().get(x);
+            }
+            user.setListData(names12);
+            users.getViewport().setView(user);
+
     }
 
-
-    public void addName(ArrayList<String> names1)
-    {
-        gameData.setGrid(names1);
-        System.out.println("It is repainting");
-        System.out.println(names1.size());
-        repaint();
-    }
     public void setJustText(String text)
     {
         /*

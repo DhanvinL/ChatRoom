@@ -1,8 +1,11 @@
 import javax.print.DocFlavor;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class  ServersListener implements Runnable
 {
@@ -14,7 +17,7 @@ public class  ServersListener implements Runnable
 
     // static data that is shared between both listeners
     private static char turn = 'X';
-    private static GameData gameData = new GameData();
+    private static  GameData gameData = new GameData();
     private static ArrayList<ObjectOutputStream> outs = new ArrayList<>();
 
 
@@ -27,18 +30,33 @@ public class  ServersListener implements Runnable
 
     @Override
     public void run() {
+        Scanner sc = new Scanner((System.in));
 
         try
         {
+
             while(true)
 
             {
                 os.reset();
                 CommandFromClient cfc = (CommandFromClient) is.readObject();
-                gameData.add(cfc.getData());
-                System.out.println("The number in the main list is:" + gameData.getNames().size());
-                ArrayList<String> temp = gameData.getNames();
-                sendCommand(new CommandFromServer(12, cfc.getData(), temp));
+                String s = cfc.getData();
+                if(cfc.getCommand() == 0)
+                {
+
+                    while(gameData.getNames().contains(s))
+                    {
+                        System.out.println("Pick a different name: ");
+                        s = sc.next();
+                    }
+                    gameData.add(s);
+                    System.out.println("The number in the main list is:" + gameData.getNames().size());
+                    ArrayList<String> temp = gameData.getNames();
+                    System.out.println("The number in the test list is:" + temp.size() + "--The number of clients is : " + outs.size());
+
+                    sendCommand(new CommandFromServer(12, s, temp));
+                }
+
 
             }
 
@@ -66,12 +84,13 @@ public class  ServersListener implements Runnable
     }
 */
 
-    public void sendCommand(CommandFromServer cfs)
-    {
+    public void sendCommand(CommandFromServer cfs) throws IOException {
+        ArrayList<String> temp = cfs.getNames();
+        CommandFromServer cur = new CommandFromServer(12, cfs.getData(), temp);
         // Sends command to both players
         for (ObjectOutputStream o : outs) {
             try {
-                o.writeObject(cfs);
+                o.writeObject(cur);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -8,7 +8,7 @@ public class CommandFromServer implements Serializable
     private int command;
     // Text data for the command
     private String data ="";
-    private ArrayList<String> names;
+    private  ArrayList<String> names;
     // Command list
     public static final int CONNECTED = 0;
     public static final int DISCONNECTED = 8;

@@ -1,5 +1,4 @@
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class CommandFromClient implements Serializable
 {
@@ -12,7 +11,8 @@ public class CommandFromClient implements Serializable
     public static final int MOVE    =0;
     public static final int RESTART =1;
 
-    public CommandFromClient(String data) {
+    public CommandFromClient(int i, String data) {
+        this.command = i;
         this.data = data;
     }
 

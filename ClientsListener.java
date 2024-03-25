@@ -28,6 +28,7 @@ public class ClientsListener implements Runnable
 
                 if(cfs.getCommand() == 12)
                 {
+                    os.reset();
                     ArrayList<String> arr = cfs.getNames();
                     System.out.println("yahoo");
                     System.out.println("The number in the list is: " + arr.size());
