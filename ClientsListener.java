@@ -22,6 +22,23 @@ public class ClientsListener implements Runnable
         try
         {
             while(true) {
+
+                CommandFromServer cfs = (CommandFromServer)is.readObject();
+                if(cfs.getCommand() == 0)
+                {
+                    frame.setUp();
+                }
+                if(cfs.getCommand() == 12)
+                {
+                    System.out.println("yahoo");
+                    System.out.println("The number in the list is: " + cfs.getNames().size());
+                    frame.addName(cfs.getNames());
+                }
+                //frame.addName(cfs.getData());
+
+
+                //write command to frame to update
+
                 /*
                 CommandFromServer cfs = (CommandFromServer) is.readObject();
                 // processes the received command

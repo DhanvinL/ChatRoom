@@ -4,9 +4,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.io.*;
 
 public class ChatRoom_Frame extends JFrame implements MouseListener {
     // Display message
@@ -18,8 +18,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     // output stream to the server
     ObjectOutputStream os;
 
-    public ChatRoom_Frame(GameData gameData, ObjectOutputStream os, String player)
-    {
+    public ChatRoom_Frame(GameData gameData, ObjectOutputStream os, String player) throws IOException {
         super("Chat Room");
         // sets the attributes
         this.gameData = gameData;
@@ -41,6 +40,14 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         setVisible(true);
         setBackground(Color.gray);
 
+
+    }
+
+    public void paint(Graphics g)
+    {
+
+        g.setColor(Color.gray);
+        g.fillRect(0,0,getWidth(),getHeight());
         //exit button
         JButton exit = new JButton("Exit");
         exit.setBounds(550,570,150,35);
@@ -59,34 +66,43 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         c.setBounds(50,100,480,400);
         add(chat);
         //user list
-        //System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+        System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+
         String[] names = new String[gameData.getNames().size()];
         for(int x = 0;x<gameData.getNames().size();x++)
         {
             names[x] = gameData.getNames().get(x);
         }
-        JList user = new JList(names);
+        JList<String> user = new JList();
+        user.setListData(names);
+        user.setBounds(550,100,150,400);
         //System.out.println(names[0]);
         JScrollPane users = new JScrollPane(user, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        users.getViewport().setView(user);
+
         users.setBounds(550,100,150,400);
         add(users);
         //send button
         JButton send = new JButton("Send");
         send.setBounds(550,525,150,35);
         add(send);
-        send.addActionListener(e ->
-        {
-            gameData.getTexts().add(ti.getText());
-            ti.setText("");
+        send.addActionListener(e ->{
+            if(!ti.getText().isEmpty()){
+                gameData.getTexts().add(ti.getText());
+                c.append(player + ": " + ti.getText());
+                ti.setText("");
+                try{
+                    os.writeObject(new CommandFromClient(ti.getText()));
+                }
+                catch(Exception f){
+                    f.printStackTrace();
+                }
+            }
+
         });
-
-    }
-
-    public void paint(Graphics g)
-    {
-
-        g.setColor(Color.gray);
-        g.fillRect(0,0,getWidth(),getHeight());
+        exit.addActionListener(e ->{
+            System.exit(0);
+        });
         /*
         for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
@@ -181,11 +197,16 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
          */
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setUp() throws IOException {
+        os.writeObject(new CommandFromClient(player));
+
+    }
+    public void addName(ArrayList<String> names1)
+    {
+        gameData.setGrid(names1);
+        System.out.println("It is repainting");
+        System.out.println(names1.size());
         repaint();
-
-
     }
     public void setJustText(String text)
     {
@@ -340,7 +361,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
                         }
                         System.out.println();
                     }
-                    os.writeObject(new CommandFromClient(CommandFromClient.RESTART,  "secret"));
+
                     setTurn('X');
                 } catch (Exception f) {
                     f.printStackTrace();

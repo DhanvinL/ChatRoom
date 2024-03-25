@@ -14,35 +14,75 @@ public class ServerMain
             // creates a socket that allows connections on port 8001
             ServerSocket serverSocket = new ServerSocket(8001);
 
+            //1
             // allow X to connect and build streams to / from X
             Socket xCon = serverSocket.accept();
             ObjectOutputStream xos = new ObjectOutputStream(xCon.getOutputStream());
             ObjectInputStream xis = new ObjectInputStream(xCon.getInputStream());
 
             // Lets the client know they are the X player
-            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            xos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Red has Connected.");
 
             // Creates a Thread to listen to the X client
-            ServersListener sl = new ServersListener(xis,xos,'X');
+            ServersListener sl = new ServersListener(xis,xos,"A");
             Thread t = new Thread(sl);
             t.start();
 
+
+            //2
             // allow O to connect and build streams to / from O
             Socket oCon = serverSocket.accept();
             ObjectOutputStream oos = new ObjectOutputStream(oCon.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(oCon.getInputStream());
 
             // Lets the client know they are the X player
-            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+            oos.writeObject(new CommandFromServer(0,null, null));
             System.out.println("Black has Connected.");
 
-            // Creates a Thread to listen to the X client
-            sl = new ServersListener(ois,oos,'O');
+            // Creates a Thread to listen to the O client
+            sl = new ServersListener(ois,oos,"B");
             t = new Thread(sl);
             t.start();
-            xos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
-            oos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED,null));
+
+            //3
+            // allow O to connect and build streams to / from O
+            Socket zCon = serverSocket.accept();
+            ObjectOutputStream zos = new ObjectOutputStream(zCon.getOutputStream());
+            ObjectInputStream zis = new ObjectInputStream(zCon.getInputStream());
+
+            // Lets the client know they are the X player
+            zos.writeObject(new CommandFromServer(0,null, null));
+            System.out.println("Black has Connected.");
+
+            // Creates a Thread to listen to the O client
+            sl = new ServersListener(zis,zos,"C");
+            t = new Thread(sl);
+            t.start();
+
+            //4
+            // allow O to connect and build streams to / from O
+            Socket bCon = serverSocket.accept();
+            ObjectOutputStream bos = new ObjectOutputStream(bCon.getOutputStream());
+            ObjectInputStream bis = new ObjectInputStream(bCon.getInputStream());
+
+            // Lets the client know they are the X player
+            bos.writeObject(new CommandFromServer(0,null, null));
+            System.out.println("Black has Connected.");
+
+            // Creates a Thread to listen to the O client
+            sl = new ServersListener(bis,bos,"D");
+            t = new Thread(sl);
+            t.start();
+
+
+
+            xos.writeObject(new CommandFromServer(0,null, null));
+            oos.writeObject(new CommandFromServer(0,null, null));
+            zos.writeObject(new CommandFromServer(0,null, null));
+            bos.writeObject(new CommandFromServer(0,null, null));
+
+
 
         }
         catch (Exception e)
