@@ -13,6 +13,7 @@ public class CommandFromServer implements Serializable
     public static final int CONNECTED = 0;
     public static final int DISCONNECTED = 8;
 
+    public static final int SHARE_MESSAGE = 2;
     public CommandFromServer(int command, String data, ArrayList<String> names) {
         this.command = command;
         this.data = data;

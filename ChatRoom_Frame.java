@@ -40,7 +40,6 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         setVisible(true);
         setBackground(Color.gray);
 
-
     }
 
     public void paint(Graphics g)
@@ -66,7 +65,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         c.setBounds(50,100,480,400);
         add(chat);
         //user list
-        System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
+        //System.out.println(gameData.getNames().size() + "123" + gameData.getNames().get(0));
 
         String[] names = new String[gameData.getNames().size()];
         for(int x = 0;x<gameData.getNames().size();x++)
@@ -89,20 +88,27 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         send.addActionListener(e ->{
             if(!ti.getText().isEmpty()){
                 gameData.getTexts().add(ti.getText());
-                c.append(player + ": " + ti.getText());
+                c.append(player + ": " + ti.getText() + "\n");
                 ti.setText("");
-                try{
+                /*try{
                     os.writeObject(new CommandFromClient(ti.getText()));
                 }
                 catch(Exception f){
                     f.printStackTrace();
-                }
+                }*/
             }
 
         });
         exit.addActionListener(e ->{
             System.exit(0);
         });
+        c.append(player + " has connected." + "\n");
+        try{
+            os.writeObject(new CommandFromClient(c.getText()));
+        }
+        catch(Exception h){
+            h.printStackTrace();
+    }
         /*
         for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
@@ -196,7 +202,6 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
          */
     }
-
     public void setUp() throws IOException {
         os.writeObject(new CommandFromClient(player));
 

@@ -28,6 +28,9 @@ public class ClientsListener implements Runnable
                 {
                     frame.setUp();
                 }
+                if(cfs.getCommand() == 2){
+                    frame.paint(frame.getGraphics());
+                }
                 if(cfs.getCommand() == 12)
                 {
                     System.out.println("yahoo");

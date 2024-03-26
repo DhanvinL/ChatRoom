@@ -34,7 +34,7 @@ public class  ServersListener implements Runnable
                 CommandFromClient cfc = (CommandFromClient) is.readObject();
                 gameData.add(cfc.getData());
                 System.out.println("The number in the best list is:" + gameData.getNames().size());
-                sendCommand(new CommandFromServer(12, cfc.getData(), gameData.getNames()));
+                sendCommand(new CommandFromServer(2, cfc.getData(), gameData.getNames()));
 
             }
         }
