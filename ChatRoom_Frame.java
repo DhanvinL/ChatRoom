@@ -17,7 +17,9 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     private GameData gameData = null;
     // output stream to the server
     ObjectOutputStream os;
-
+    JTextField ti;
+    JTextArea c;
+    JScrollPane chat;
     public ChatRoom_Frame(GameData gameData, ObjectOutputStream os, String player) throws IOException {
         super("Chat Room");
         // sets the attributes
@@ -39,15 +41,6 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         setAlwaysOnTop(true);
         setVisible(true);
         setBackground(Color.gray);
-
-    }
-
-    public void paint(Graphics g)
-    {
-
-        g.setColor(Color.gray);
-        g.fillRect(0,0,getWidth(),getHeight());
-        //exit button
         JButton exit = new JButton("Exit");
         exit.setBounds(550,570,150,35);
         add(exit);
@@ -108,7 +101,16 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         }
         catch(Exception h){
             h.printStackTrace();
+        }
     }
+
+    public void paint(Graphics g)
+    {
+
+        //g.setColor(Color.gray);
+        //g.fillRect(0,0,getWidth(),getHeight());
+        //exit button
+
         /*
         for (int row = 0; row < gameData.getGrid().length; row++) {
             System.out.print("Row " + (row + 1) + ": ");
@@ -202,6 +204,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
          */
     }
+
+
     public void setUp() throws IOException {
         os.writeObject(new CommandFromClient(player));
 
