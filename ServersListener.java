@@ -58,6 +58,10 @@ public class  ServersListener implements Runnable
                 }
                 if(cfc.getCommand() == 10)
                 {
+
+
+                    System.out.println("YIPPEEE");
+
                     gameData.getTexts().add(cfc.getData());
                     sendCommand(new CommandFromServer(18, s, gameData.getTexts()));
 

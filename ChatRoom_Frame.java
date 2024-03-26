@@ -19,6 +19,8 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
     private ArrayList<String> arr= new ArrayList<String>();
     JScrollPane users;
+    JTextArea c = new JTextArea();
+
 
     // output stream to the server
     ObjectOutputStream os;
@@ -65,7 +67,6 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
         ct.setBounds(30,100,20,20);
         add(ct);
          */
-        JTextArea c = new JTextArea();
 
         JScrollPane chat = new JScrollPane(c, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         chat.setBounds(50,100,480,400);
@@ -112,7 +113,12 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
     }
     public void appendTexts(ArrayList<String> texts)
     {
+        //System.out.println("IT COMES HERE AND THE SIZE IS" + texts.size());
         //code for(everything in texts) -> append to text area
+        for(int x = 0;x<texts.size();x++)
+        {
+            c.append(player + ": " + texts.get(x) + "\n");
+        }
     }
 
     /*public void paint(Graphics g)
