@@ -43,7 +43,7 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
 
         setSize(750,750);
-        setResizable(true);
+        setResizable(false);
         setAlwaysOnTop(true);
         setVisible(true);
 
@@ -90,8 +90,29 @@ public class ChatRoom_Frame extends JFrame implements MouseListener {
 
         users.setBounds(550,100,150,400);
         add(users);
+        send.addActionListener(e ->{
 
+                //gameData.getTexts().add(ti.getText());
+                //c.append(player + ": " + ti.getText() + "\n");
+                //ti.setText("");
+                try{
+                    os.writeObject(new CommandFromClient(10, ti.getText()));
+                }
+                catch(Exception f){
+                    f.printStackTrace();
 
+            }
+
+        });
+        exit.addActionListener(e ->{
+            System.exit(0);
+        });
+        c.append(player + " has connected." + "\n");
+
+    }
+    public void appendTexts(ArrayList<String> texts)
+    {
+        //code for(everything in texts) -> append to text area
     }
 
     /*public void paint(Graphics g)

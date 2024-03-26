@@ -34,6 +34,12 @@ public class ClientsListener implements Runnable
                     System.out.println("The number in the list is: " + arr.size());
                     frame.addName(arr);
                 }
+                if(cfs.getCommand() == 18)
+                {
+                    os.reset();
+                    ArrayList<String> arr = cfs.getNames();
+                    frame.add()
+                }
                 //frame.addName(cfs.getData());
 
 
